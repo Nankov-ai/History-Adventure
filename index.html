@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="App interativa de jogos para aprender História e Geografia de Portugal - 5º ano">
+    <meta name="keywords" content="HGP, História, Geografia, Portugal, 5º ano, jogos educativos">
+    <meta name="author" content="History Adventure">
+    <title>History Adventure - HGP 5º Ano</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🏛️ History Adventure 🎮</h1>
+            <p>Aprende História e Geografia de Portugal a jogar!</p>
+        </div>
+
+        <div class="score-board">
+            <div style="display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">🌟</span>
+                    <span>Pontos: <span id="score">0</span></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">✅</span>
+                    <span>Certas: <span id="correct-count">0</span></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">❌</span>
+                    <span>Erradas: <span id="wrong-count">0</span></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">📊</span>
+                    <span>Precisão: <span id="accuracy">0%</span></span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span style="font-size: 1.8em;">🏅</span>
+                    <span>Recorde: <span id="high-score">0</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="topic-selector">
+            <p class="topic-label">📖 Escolhe a unidade:</p>
+            <div class="topic-buttons">
+                <button class="topic-btn active" onclick="selectTopic('peninsulaLocalizacao', this)">🗺️ A1 · Localização</button>
+                <button class="topic-btn"         onclick="selectTopic('peninsulaQuadroNatural', this)">⛰️ A2 · Quadro Natural</button>
+                <button class="topic-btn"         onclick="selectTopic('primeirasComunidades', this)">🏹 B1 · Primeiras Comunidades</button>
+                <button class="topic-btn"         onclick="selectTopic('romanos', this)">🏛️ B2 · Romanos</button>
+                <button class="topic-btn"         onclick="selectTopic('muculmanos', this)">🕌 B3 · Muçulmanos</button>
+                <button class="topic-btn"         onclick="selectTopic('formacaoPortugal', this)">👑 B4 · Formação de Portugal</button>
+                <button class="topic-btn"         onclick="selectTopic('portugalXIII_XIV', this)">⚔️ C1 · Séc. XIII-XIV</button>
+                <button class="topic-btn"         onclick="selectTopic('expansaoMaritima', this)">⛵ C2 · Expansão Marítima</button>
+                <button class="topic-btn"         onclick="selectTopic('uniaoIberica', this)">🎊 C3 · União Ibérica</button>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" data-game="match"      onclick="showGame('match', this)">🎯 Associar</button>
+            <button class="tab"        data-game="quiz"       onclick="showGame('quiz', this)">❓ Quiz</button>
+            <button class="tab"        data-game="unscramble" onclick="showGame('unscramble', this)">🔤 Letras</button>
+            <button class="tab"        data-game="complete"   onclick="showGame('complete', this)">📜 Completar</button>
+            <button class="tab"        data-game="timeline"   onclick="showGame('timeline', this)">🕰️ Linha do Tempo</button>
+            <button class="tab"        data-game="maplabel"   onclick="showGame('maplabel', this)">🗺️ Legendar Mapa</button>
+        </div>
+
+        <div class="game-container">
+            <!-- Match Game -->
+            <div id="match-game" class="game-section active">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">📚</span>Associa os pares!</h3>
+                    <p>Carrega num emoji e depois na palavra correspondente. Associa todos os pares!</p>
+                </div>
+                <div style="text-align: center; margin: 15px 0;">
+                    <span id="match-progress" style="font-size: 1.3em; font-weight: bold; color: #2a5298;">Descobertos: 0/8</span>
+                    <button class="btn" onclick="resetMatchGame()" style="margin-left: 20px; font-size: 1em; padding: 10px 25px;">
+                        🔄 Reiniciar
+                    </button>
+                </div>
+                <div class="match-grid" id="match-grid"></div>
+            </div>
+
+            <!-- Quiz Game -->
+            <div id="quiz-game" class="game-section">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">🤔</span>Responde à pergunta!</h3>
+                    <p>Lê a pergunta com atenção e escolhe a resposta certa!</p>
+                </div>
+                <div id="quiz-container"></div>
+            </div>
+
+            <!-- Unscramble Game -->
+            <div id="unscramble-game" class="game-section">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">🧩</span>Descobre a palavra!</h3>
+                    <p>Organiza as letras para escrever a palavra certa!</p>
+                </div>
+                <div class="unscramble-grid" id="unscramble-grid"></div>
+            </div>
+
+            <!-- Complete the Sentence Game -->
+            <div id="complete-game" class="game-section">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">✍️</span>Completa as frases!</h3>
+                    <p>Escolhe uma palavra do banco e carrega no espaço para a colocar!</p>
+                </div>
+                <div id="complete-container"></div>
+            </div>
+
+            <!-- Timeline Game -->
+            <div id="timeline-game" class="game-section">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">🕰️</span>Ordena a Linha do Tempo!</h3>
+                    <p>Clica num acontecimento e depois no lugar da linha do tempo onde achas que ele aconteceu, do mais antigo para o mais recente!</p>
+                </div>
+                <div class="timeline-ruler">
+                    <span>⬅️ Mais antigo</span><span>Mais recente ➡️</span>
+                </div>
+                <div class="timeline-track" id="timeline-track"></div>
+                <div class="timeline-pool" id="timeline-pool"></div>
+                <div style="text-align: center; margin-top: 20px;">
+                    <button class="check-answer-btn" onclick="checkTimeline()" id="timeline-check-btn" disabled>
+                        ✓ Verificar ordem
+                    </button>
+                </div>
+                <div id="timeline-result" style="margin-top: 20px; text-align: center; line-height: 2;"></div>
+            </div>
+
+            <!-- Map Label Game -->
+            <div id="maplabel-game" class="game-section">
+                <div class="instructions">
+                    <h3><span class="emoji-icon">🗺️</span>Legenda o Mapa!</h3>
+                    <p>Clica numa palavra e depois na definição correta para a colocares no lugar certo!</p>
+                </div>
+                <div class="maplabel-wrap">
+                    <div class="maplabel-pool" id="maplabel-pool"></div>
+                    <div class="maplabel-definitions" id="maplabel-definitions"></div>
+                    <button class="check-answer-btn" onclick="checkMapLabels()" id="maplabel-check-btn" disabled>
+                        ✓ Verificar respostas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="feedback" id="feedback">
+        <div class="feedback-emoji" id="feedback-emoji"></div>
+        <div class="feedback-text" id="feedback-text"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script src="images.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
