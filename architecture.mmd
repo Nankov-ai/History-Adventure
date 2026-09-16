@@ -1,0 +1,53 @@
+%% History Adventure — arquitetura da app (5º ano, Portugal)
+%% Espelha a estrutura estática do "English Adventure": sem build, sem servidor.
+
+flowchart TD
+    subgraph Fontes["📚 Fontes do Conhecimento (input humano)"]
+        F1[Manual / fichas / PDFs de História<br/>5º ano]
+    end
+
+    subgraph Static["🖥️ App estática (HTML/CSS/JS puro)"]
+        HTML[index.html<br/>Shell: seletor de época + separadores de jogos]
+        DATA[data.js<br/>Fonte única de verdade:<br/>épocas, perguntas, vocabulário, datas]
+        IMAGES[images.js<br/>Linhas do tempo, mapas, cenas visuais em HTML/CSS]
+        APP[app.js<br/>Lógica dos jogos, lê gameData via td()]
+        CSS[styles.css<br/>Estilo, sem pré-processador]
+    end
+
+    subgraph Games["🎮 Jogos (por época histórica)"]
+        G1[🎯 Associar<br/>imagem/palavra ↔ conceito]
+        G2[❓ Quiz<br/>perguntas de escolha múltipla]
+        G3[🔤 Ordenar Letras<br/>reconstruir palavras-chave]
+        G4[📜 Completar Frase<br/>preencher espaços em textos históricos]
+        G5[🕰️ Linha do Tempo<br/>ordenar acontecimentos cronologicamente]
+    end
+
+    subgraph Topics["🏛️ Épocas / Conteúdos (5º ano — currículo PT)"]
+        T1[Pré-História]
+        T2[Antigo Egito]
+        T3[Antiga Grécia]
+        T4[Roma Antiga]
+        T5[Península Ibérica antes de Portugal]
+        T6[Formação de Portugal]
+    end
+
+    F1 -->|"extração manual/assistida<br/>de conteúdos e imagens"| DATA
+    F1 -.->|"referências de página<br/>📖 p.XX"| DATA
+
+    DATA --> APP
+    IMAGES --> APP
+    APP --> HTML
+    CSS --> HTML
+
+    APP --> G1
+    APP --> G2
+    APP --> G3
+    APP --> G4
+    APP --> G5
+
+    Topics -.->|"cada época tem os 5 tipos de jogo"| Games
+
+    HTML -->|"score em localStorage<br/>chave: ha_highScore"| Score[(Pontuação local)]
+
+    Static -->|"git push origin main"| Deploy[GitHub Pages<br/>deploy automático]
+    Deploy --> User((Aluno 5º ano))
