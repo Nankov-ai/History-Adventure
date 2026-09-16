@@ -10,13 +10,13 @@ const gameData = {
   peninsulaLocalizacao: {
     name: 'A1 · Localização',
     matchWords: {
-      'Europa': '🌍',
+      'Europa': '🇪🇺',
       'Oceano Atlântico': '🌊',
       'Mar Mediterrâneo': '⛵',
       'Pirenéus': '⛰️',
       'Portugal': '🇵🇹',
       'Espanha': '🇪🇸',
-      'Continente': '🌎',
+      'Continente': '🌍',
       'Globo': '🌐',
     },
     translations: {
