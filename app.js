@@ -104,7 +104,7 @@ function initMatchGame() {
     shuffledEmojis.forEach(([word, emoji]) => {
         const card = document.createElement('div');
         card.className = 'match-card';
-        card.innerHTML = emoji;
+        card.innerHTML = `<span class="emoji-badge">${emoji}</span>`;
         card.dataset.type = 'emoji';
         card.dataset.word = word;
         card.onclick = () => selectCard(card);

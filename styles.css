@@ -238,6 +238,23 @@ body {
 .match-card[data-type="emoji"] {
     font-size: 2.6em;
     line-height: 1;
+    display: flex;
+    justify-content: center;
+}
+
+/* A light circular backdrop behind every emoji so it stands out from the
+   card's own orange gradient — emoji glyphs are full-colour images, not
+   styleable text, so a CSS gradient can't tint them; a contrasting badge
+   is what actually makes a same-hue icon (e.g. 🐎 on orange) legible. */
+.emoji-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #fffdf5 0%, #ffe8c2 100%);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.25), inset 0 0 0 2px rgba(139,69,19,0.15);
 }
 
 .match-card:hover {
