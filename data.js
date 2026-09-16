@@ -12,7 +12,7 @@ const gameData = {
     matchWords: {
       'Europa': '🌍',
       'Oceano Atlântico': '🌊',
-      'Mar Mediterrâneo': '🌊',
+      'Mar Mediterrâneo': '⛵',
       'Pirenéus': '⛰️',
       'Portugal': '🇵🇹',
       'Espanha': '🇪🇸',
@@ -219,7 +219,7 @@ const gameData = {
     matchWords: {
       'Islão': '☪️',
       'Corão': '📖',
-      'Al-Andalus': '🕌',
+      'Al-Andalus': '🗺️',
       'Mesquita': '🕌',
       'Noria': '💧',
       'Califa': '👳',
@@ -265,7 +265,7 @@ const gameData = {
   formacaoPortugal: {
     name: 'B4 · Formação de Portugal',
     matchWords: {
-      'Reconquista': '⚔️',
+      'Reconquista': '🐎',
       'Condado': '🏰',
       'Batalha': '⚔️',
       'Fronteira': '🗺️',
@@ -316,7 +316,7 @@ const gameData = {
     name: 'C1 · Séc. XIII-XIV',
     matchWords: {
       'Nobreza': '👑',
-      'Clero': '⛪',
+      'Clero': '✝️',
       'Povo': '🌾',
       'Foral': '📜',
       'Gótico': '⛪',
@@ -420,10 +420,10 @@ const gameData = {
     name: 'C3 · União Ibérica',
     matchWords: {
       'União Ibérica': '🤝',
-      'Duque de Bragança': '👑',
-      'D. João IV': '👑',
+      'Duque de Bragança': '🏰',
+      'D. João IV': '🤴',
       'Independência': '🎉',
-      'Filipe II': '👑',
+      'Filipe II': '🇪🇸',
       'Coroa': '👑',
       'Guerra': '⚔️',
       'Restauração': '🎊',
