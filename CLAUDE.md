@@ -20,7 +20,11 @@ The curriculum follows the manual **"HGP em Ação 5"** (Porto Editora, Eliseu A
 | C2 | Portugal nos séculos XV e XVI |
 | C3 | Portugal: da União Ibérica à Restauração da Independência |
 
-Real course dates seen so far (`Fontes do Conhecimento/`): **Aula 1** covers course logistics (normas, critérios de avaliação) plus the full-year summary PPT (source for the unit table above). **Aulas 2-3** cover unit A2 in depth (formas de representação da Terra, planisfério, globo). More `Aula N` folders will be added over the school year — always re-check `Fontes do Conhecimento/` for new material before extending `data.js`, since it is the source of truth for what's actually being taught and in what order.
+Real course dates seen so far (`Fontes do Conhecimento/`): **Aula 1** covers course logistics (normas, critérios de avaliação) plus the full-year summary PPT (source for the unit table above and for all of `data.js`'s current content). **Aulas 2-3** cover unit A2 in depth (formas de representação da Terra, planisfério, globo). More `Aula N` folders will be added over the school year — always re-check `Fontes do Conhecimento/` for new material before extending `data.js`, since it is the source of truth for what's actually being taught and in what order.
+
+## Status
+
+**Fully implemented and live** — all 9 units have real content (match/quiz/unscramble/complete-sentence for every unit, plus Linha do Tempo for B1-C3 and Legendar o Mapa for A1-A2), the app is responsive from ~320px phones to large desktops, and it's deployed and verified working at the URL above. Data structure and UI flows were validated with a Node script and Playwright (no console errors, no horizontal overflow at 320/375/768/1440px). Future work is adding units from new `Aula N` sources as the school year progresses (see [Adding new content](#adding-new-content)).
 
 Mirrors the architecture of the sibling project **English Adventure** (`C:\projetos\English Adventure`) — same file layout, same `td()` topic-switching pattern, same localStorage scoring. Keep both apps structurally consistent so fixes/patterns can be ported between them.
 
@@ -93,7 +97,7 @@ Unit keys follow the manual's letter/number codes (see the table above) — `tim
 - `quizQuestions` — array of `{ question, img?, options[], correct, emoji, hint }`
 - `unscrambleWords` — array of `{ scrambled, answer, emoji, hint }`
 - `completeSentences` — array of `{ sentence, blank, options[], emoji, hint }`
-- `timelineEvents` — array of `{ event, year, emoji }` — **History units only (B1-C3)**; Timeline game shuffles and asks the student to reorder chronologically. Always render both the a.C./d.C. side and a mini ruler like the manual's own timeline strip (p.27) — before/after-Christ date reading is conceptually hard at this age, don't assume it's obvious.
+- `timelineEvents` — array of `{ event, year, sortYear, emoji }` — **History units only (B1-C3)**; `year` is the display string (e.g. `'218 a.C.'`), `sortYear` is a plain number used to check ordering (negative for a.C., positive for d.C.). Timeline game shuffles the cards and asks the student to reorder them chronologically against a mini ruler. Before/after-Christ date reading is conceptually hard at this age — always show both, don't assume it's obvious.
 - `mapLabels` — array of `{ term, definition }` (e.g. `{ term: 'Legenda', definition: 'Explica o que significam as cores e os símbolos do mapa' }`) — **Geography units only (A1-A2)**; used by the Legendar o Mapa game (see below)
 
 **Key fields:**
@@ -110,23 +114,20 @@ function td() { return gameData[currentTopic]; }   // shorthand used everywhere
 
 `selectTopic(topic, btn)` updates `currentTopic`, re-styles the topic buttons, and re-initialises whichever game tab is currently active.
 
-Each game (`initMatchGame`, `initQuizGame`, `initUnscrambleGame`, `initCompleteGame`, `initTimelineGame`, `initMapLabelGame`) reads exclusively from `td()` — no hardcoded topic references. `initTimelineGame` only runs for units with `timelineEvents`; `initMapLabelGame` only for units with `mapLabels`. The game-tab UI should hide/disable tabs that don't apply to the current unit rather than showing an empty state.
+Each game (`initMatchGame`, `initQuizGame`, `initUnscrambleGame`, `initCompleteGame`, `initTimelineGame`, `initMapLabelGame`) reads exclusively from `td()` — no hardcoded topic references. `initTimelineGame` only runs for units with `timelineEvents`; `initMapLabelGame` only for units with `mapLabels`. `updateTabVisibility()` (called from `selectTopic()` and on page load) sets `hidden` on the `.tab` buttons that don't apply to the current unit, and `selectTopic()` falls back to the Match tab if the currently active tab just became hidden.
 
 ### Visual images (`images.js`)
 
 ```js
 const quizImages = {
-  mapaPeninsulaLocalizacao,   // A1 — continents/oceans + Península Ibérica location
-  mapaRelevoPeninsula,        // A2 — relief/rivers map with legend elements (título, legenda, fonte, orientação, escala)
-  cenaRecoletoresAgropastoris,// B1 — nomadic vs sedentary community scenes
-  mapaExpansaoRomana,         // B2 — Roman territory + romanization timeline
-  mapaAlAndalus,              // B3 — Muslim expansion into the Iberian Peninsula
-  mapaReconquista,            // B4 — Condado Portucalense → Kingdom of Portugal
-  mapaExpansaoMaritima,       // C2 — African coast exploration stages + Tratado de Tordesilhas
+  mapaContinentes,     // A1 — continents grid highlighting the Península Ibérica in Europe
+  mapaRelevoEsquema,   // A2 — schematic relief regions (montanhas/meseta/planícies)
+  mapaReconquista,     // B4 — Condado Portucalense → Kingdom of Portugal → + Algarve
+  mapaExpansaoMaritima,// C2 — African coast exploration stages, 1415-1500
 };
 ```
 
-Add a new image here and reference it with `img: 'keyName'` on any quiz question.
+Each is a plain HTML/CSS string (no external image files, no network requests) — keeps the app a true zero-dependency static site. Add a new one here and reference it with `img: 'keyName'` on any quiz question; not every question needs an image, use them where a visual genuinely helps (maps, sequences).
 
 ## Adding new content
 
@@ -144,6 +145,10 @@ Add to `timelineEvents` for the topic — the Timeline game shuffles these and a
 ## Score persistence
 
 `highScore` is saved to `localStorage` under key `ha_highScore`. Everything else resets on page load.
+
+## Responsive design
+
+`styles.css` has breakpoints at 420px (small phones), 768px (tablets), and 1400px+ (large desktops) — tightening padding, font sizes, tab labels and grid column counts as the screen shrinks. `body` uses `align-items: flex-start` (not `center`) so tall game content isn't clipped above the viewport on short screens. When adding new UI, check it at both ends: a 320px-wide phone and a 1440px+ desktop, and verify there's no horizontal scroll (`document.documentElement.scrollWidth > clientWidth`).
 
 ## Audience & tone
 
