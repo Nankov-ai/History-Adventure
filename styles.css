@@ -232,6 +232,14 @@ body {
     font-weight: bold;
 }
 
+/* Emoji cards need a much bigger glyph than word cards so the icon is
+   actually legible/distinguishable — small emoji at ~19px are hard to
+   tell apart on a phone (e.g. 🐎 vs other icons). */
+.match-card[data-type="emoji"] {
+    font-size: 2.6em;
+    line-height: 1;
+}
+
 .match-card:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -902,6 +910,10 @@ body {
     .match-card {
         padding: 16px 8px;
         font-size: 1em;
+    }
+
+    .match-card[data-type="emoji"] {
+        font-size: 2.2em;
     }
 
     .quiz-option {
