@@ -4,7 +4,23 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this project is
 
-**History Adventure** — a static browser-only quiz app for a Portuguese 5th-grade student (10-11 years old) learning História (Portuguese national curriculum: Pré-História → Antigo Egito → Antiga Grécia → Roma Antiga → Península Ibérica → Formação de Portugal). No build step, no dependencies, no server. Everything runs from plain HTML/CSS/JS files.
+**History Adventure** — a static browser-only quiz app for a Portuguese 5th-grade student (10-11 years old) learning HGP (História e Geografia de Portugal). No build step, no dependencies, no server. Everything runs from plain HTML/CSS/JS files.
+
+The curriculum follows the manual **"HGP em Ação 5"** (Porto Editora, Eliseu Alves · Elisabete Jesus), structured in lettered/numbered units:
+
+| Unit | Title |
+|------|-------|
+| A1 | A Península Ibérica — Localização |
+| A2 | A Península Ibérica — Quadro Natural |
+| B1 | As primeiras comunidades humanas da Península Ibérica |
+| B2 | Os Romanos na Península Ibérica |
+| B3 | Os Muçulmanos na Península Ibérica |
+| B4 | A formação do Reino de Portugal |
+| C1 | Portugal nos séculos XIII e XIV |
+| C2 | Portugal nos séculos XV e XVI |
+| C3 | Portugal: da União Ibérica à Restauração da Independência |
+
+Real course dates seen so far (`Fontes do Conhecimento/`): **Aula 1** covers course logistics (normas, critérios de avaliação) plus the full-year summary PPT (source for the unit table above). **Aulas 2-3** cover unit A2 in depth (formas de representação da Terra, planisfério, globo). More `Aula N` folders will be added over the school year — always re-check `Fontes do Conhecimento/` for new material before extending `data.js`, since it is the source of truth for what's actually being taught and in what order.
 
 Mirrors the architecture of the sibling project **English Adventure** (`C:\projetos\English Adventure`) — same file layout, same `td()` topic-switching pattern, same localStorage scoring. Keep both apps structurally consistent so fixes/patterns can be ported between them.
 
@@ -57,47 +73,56 @@ See [`architecture.mmd`](architecture.mmd) for the full diagram. Same five-file 
 
 ```js
 const gameData = {
-  preHistoria: { name, translations, matchWords, quizQuestions, unscrambleWords, completeSentences, timelineEvents },
-  egito:       { ... },
-  grecia:      { ... },
-  roma:        { ... },
-  peninsula:   { ... },
-  portugal:    { ... },
+  peninsulaLocalizacao:  { name, translations, matchWords, quizQuestions, unscrambleWords, completeSentences },              // A1 — Geografia
+  peninsulaQuadroNatural:{ ... },                                                                                            // A2 — Geografia
+  primeirasComunidades:  { name, translations, matchWords, quizQuestions, unscrambleWords, completeSentences, timelineEvents }, // B1
+  romanos:                { ... },  // B2
+  muculmanos:             { ... },  // B3
+  formacaoPortugal:       { ... },  // B4
+  portugalXIII_XIV:       { ... },  // C1
+  expansaoMaritima:       { ... },  // C2
+  uniaoIberica:           { ... },  // C3
 };
 ```
 
-**Per topic (época):**
+Unit keys follow the manual's letter/number codes (see the table above) — `timelineEvents` only applies to History units (B1-C3); Geography units (A1-A2) skip it since they're not chronological.
+
+**Per topic (unidade):**
 - `matchWords` — `{ 'conceito': '🏺' }` — used by the Match game
 - `translations` — `{ 'termo difícil': 'explicação simples em PT' }` — vocabulary glosses for a 10-year-old, looked up by `explica(termo)` in app.js
 - `quizQuestions` — array of `{ question, img?, options[], correct, emoji, hint }`
 - `unscrambleWords` — array of `{ scrambled, answer, emoji, hint }`
 - `completeSentences` — array of `{ sentence, blank, options[], emoji, hint }`
-- `timelineEvents` — array of `{ event, year, emoji }` — for the Timeline (Linha do Tempo) game, ordering events chronologically
+- `timelineEvents` — array of `{ event, year, emoji }` — **History units only (B1-C3)**; Timeline game shuffles and asks the student to reorder chronologically. Always render both the a.C./d.C. side and a mini ruler like the manual's own timeline strip (p.27) — before/after-Christ date reading is conceptually hard at this age, don't assume it's obvious.
+- `mapLabels` — array of `{ term, definition }` (e.g. `{ term: 'Legenda', definition: 'Explica o que significam as cores e os símbolos do mapa' }`) — **Geography units only (A1-A2)**; used by the Legendar o Mapa game (see below)
 
 **Key fields:**
 - `img` on quiz questions → key into `quizImages` in `images.js`; renders a visual map/timeline/scene above the options
-- `hint` on every question → gives the student a scaffold before revealing the answer (5th grade needs more scaffolding than 4th grade English vocab drilling)
+- `hint` on every question → gives the student a scaffold before revealing the answer, always available without a score penalty (never gate it behind losing points — that turns the game into an exam)
+- On a wrong answer, reformulate rather than flatly reject: nudge toward the right place to look (e.g. "quase — repara na legenda 🔍") instead of a bare red ✗
 
 ### How topic switching works (`app.js`)
 
 ```js
-let currentTopic = 'preHistoria';          // global
+let currentTopic = 'peninsulaLocalizacao'; // global
 function td() { return gameData[currentTopic]; }   // shorthand used everywhere
 ```
 
 `selectTopic(topic, btn)` updates `currentTopic`, re-styles the topic buttons, and re-initialises whichever game tab is currently active.
 
-Each game (`initMatchGame`, `initQuizGame`, `initUnscrambleGame`, `initCompleteGame`, `initTimelineGame`) reads exclusively from `td()` — no hardcoded topic references.
+Each game (`initMatchGame`, `initQuizGame`, `initUnscrambleGame`, `initCompleteGame`, `initTimelineGame`, `initMapLabelGame`) reads exclusively from `td()` — no hardcoded topic references. `initTimelineGame` only runs for units with `timelineEvents`; `initMapLabelGame` only for units with `mapLabels`. The game-tab UI should hide/disable tabs that don't apply to the current unit rather than showing an empty state.
 
 ### Visual images (`images.js`)
 
 ```js
 const quizImages = {
-  timelinePreHistoria,   // horizontal timeline strip
-  mapaEgito,             // Nile map with labeled locations
-  mapaGrecia,            // Greek city-states map
-  imperioRomano,         // Roman Empire extent map
-  mapaPeninsula,         // Iberian Peninsula peoples map
+  mapaPeninsulaLocalizacao,   // A1 — continents/oceans + Península Ibérica location
+  mapaRelevoPeninsula,        // A2 — relief/rivers map with legend elements (título, legenda, fonte, orientação, escala)
+  cenaRecoletoresAgropastoris,// B1 — nomadic vs sedentary community scenes
+  mapaExpansaoRomana,         // B2 — Roman territory + romanization timeline
+  mapaAlAndalus,              // B3 — Muslim expansion into the Iberian Peninsula
+  mapaReconquista,            // B4 — Condado Portucalense → Kingdom of Portugal
+  mapaExpansaoMaritima,       // C2 — African coast exploration stages + Tratado de Tordesilhas
 };
 ```
 

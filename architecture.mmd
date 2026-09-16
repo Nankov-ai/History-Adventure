@@ -14,21 +14,30 @@ flowchart TD
         CSS[styles.css<br/>Estilo, sem pré-processador]
     end
 
-    subgraph Games["🎮 Jogos (por época histórica)"]
+    subgraph Games["🎮 Jogos (todas as unidades)"]
         G1[🎯 Associar<br/>imagem/palavra ↔ conceito]
         G2[❓ Quiz<br/>perguntas de escolha múltipla]
         G3[🔤 Ordenar Letras<br/>reconstruir palavras-chave]
         G4[📜 Completar Frase<br/>preencher espaços em textos históricos]
+    end
+
+    subgraph GamesHist["🎮 Jogos (só unidades de História B1-C3)"]
         G5[🕰️ Linha do Tempo<br/>ordenar acontecimentos cronologicamente]
     end
 
-    subgraph Topics["🏛️ Épocas / Conteúdos (5º ano — currículo PT)"]
-        T1[Pré-História]
-        T2[Antigo Egito]
-        T3[Antiga Grécia]
-        T4[Roma Antiga]
-        T5[Península Ibérica antes de Portugal]
-        T6[Formação de Portugal]
+    subgraph GamesGeo["🎮 Jogos (só unidades de Geografia A1-A2)"]
+        G6[🗺️ Legendar o Mapa<br/>título / legenda / fonte / orientação / escala]
+    end
+
+    subgraph Topics["🏛️ Unidades (HGP em Ação 5 — Porto Editora)"]
+        T1["A1/A2 · Península Ibérica<br/>Localização + Quadro Natural"]
+        T2["B1 · Primeiras comunidades<br/>humanas da Península"]
+        T3["B2 · Os Romanos na<br/>Península Ibérica"]
+        T4["B3 · Os Muçulmanos na<br/>Península Ibérica"]
+        T5["B4 · Formação do<br/>Reino de Portugal"]
+        T6["C1 · Portugal séc. XIII-XIV"]
+        T7["C2 · Portugal séc. XV-XVI<br/>(Expansão Marítima)"]
+        T8["C3 · União Ibérica →<br/>Restauração da Independência"]
     end
 
     F1 -->|"extração manual/assistida<br/>de conteúdos e imagens"| DATA
@@ -44,8 +53,10 @@ flowchart TD
     APP --> G3
     APP --> G4
     APP --> G5
+    APP --> G6
 
-    Topics -.->|"cada época tem os 5 tipos de jogo"| Games
+    Topics -.->|"A1-A2: 4 jogos comuns + Legendar Mapa"| GamesGeo
+    Topics -.->|"B1-C3: 4 jogos comuns + Linha do Tempo"| GamesHist
 
     HTML -->|"score em localStorage<br/>chave: ha_highScore"| Score[(Pontuação local)]
 
