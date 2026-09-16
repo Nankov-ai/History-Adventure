@@ -268,7 +268,7 @@ const gameData = {
       'Reconquista': '🐎',
       'Condado': '🏰',
       'Batalha': '⚔️',
-      'Fronteira': '🗺️',
+      'Fronteira': '🚧',
       'Rei': '👑',
       'Tratado': '📜',
       'Algarve': '🌊',
