@@ -24,7 +24,7 @@ Real course dates seen so far (`Fontes do Conhecimento/`): **Aula 1** covers cou
 
 Mirrors the architecture of the sibling project **English Adventure** (`C:\projetos\English Adventure`) — same file layout, same `td()` topic-switching pattern, same localStorage scoring. Keep both apps structurally consistent so fixes/patterns can be ported between them.
 
-Published at: **https://nankov-ai.github.io/History-Adventure/** (to be created)
+Published at: **https://nodeflow.pt/History-Adventure/** (GitHub Pages, custom domain)
 
 ## Content source
 
