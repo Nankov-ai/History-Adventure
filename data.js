@@ -10,12 +10,12 @@ const gameData = {
   peninsulaLocalizacao: {
     name: 'A1 · Localização',
     matchWords: {
-      'Europa': '🇪🇺',
+      'Europa': '<svg viewBox="0 0 100 100" style="width:70%;height:70%"><path d="M20 30 Q15 20 25 15 Q35 5 45 12 Q55 8 65 15 Q80 12 85 25 Q92 35 82 42 Q88 55 75 58 Q80 70 65 72 Q60 85 45 80 Q35 90 25 78 Q12 75 15 62 Q5 55 12 45 Q8 35 20 30 Z" fill="#4a90d9" stroke="#1a4d7a" stroke-width="3"/></svg>',
       'Oceano Atlântico': '🌊',
       'Mar Mediterrâneo': '⛵',
       'Pirenéus': '⛰️',
-      'Portugal': '🇵🇹',
-      'Espanha': '🇪🇸',
+      'Portugal': '<svg viewBox="0 0 60 100" style="width:55%;height:70%"><path d="M28 4 Q38 4 36 16 Q42 28 36 40 Q40 52 34 64 Q38 76 30 88 Q26 96 18 90 Q14 78 18 68 Q12 56 16 44 Q10 32 16 20 Q14 8 28 4 Z" fill="#2E8B57" stroke="#046A38" stroke-width="3"/></svg>',
+      'Espanha': '<svg viewBox="0 0 100 90" style="width:75%;height:68%"><path d="M15 20 Q10 8 25 6 Q40 -2 55 6 Q70 2 82 12 Q95 16 92 30 Q98 42 88 50 Q92 62 78 66 Q75 78 60 74 Q50 86 36 78 Q22 84 16 72 Q4 68 8 54 Q0 44 10 34 Q4 26 15 20 Z" fill="#DA291C" stroke="#a01d15" stroke-width="3"/></svg>',
       'Continente': '🌍',
       'Globo': '🌐',
     },
