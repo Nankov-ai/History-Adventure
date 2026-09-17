@@ -10,7 +10,7 @@ const gameData = {
   peninsulaLocalizacao: {
     name: 'A1 · Localização',
     matchWords: {
-      'Europa': '<svg viewBox="0 0 100 100" style="width:70%;height:70%"><path d="M20 30 Q15 20 25 15 Q35 5 45 12 Q55 8 65 15 Q80 12 85 25 Q92 35 82 42 Q88 55 75 58 Q80 70 65 72 Q60 85 45 80 Q35 90 25 78 Q12 75 15 62 Q5 55 12 45 Q8 35 20 30 Z" fill="#4a90d9" stroke="#1a4d7a" stroke-width="3"/></svg>',
+      'Europa': '<svg viewBox="0 0 100 100" style="width:74%;height:74%"><defs><path id="eu-star" d="M0,-4 L0.95,-1.24 L3.8,-1.24 L1.55,0.47 L2.35,3.24 L0,1.53 L-2.35,3.24 L-1.55,0.47 L-3.8,-1.24 L-0.95,-1.24 Z"/></defs><circle cx="50" cy="50" r="48" fill="#003399"/><g fill="#FFCC00"><use href="#eu-star" x="50.0" y="14.0"/><use href="#eu-star" x="68.0" y="18.8"/><use href="#eu-star" x="81.2" y="32.0"/><use href="#eu-star" x="86.0" y="50.0"/><use href="#eu-star" x="81.2" y="68.0"/><use href="#eu-star" x="68.0" y="81.2"/><use href="#eu-star" x="50.0" y="86.0"/><use href="#eu-star" x="32.0" y="81.2"/><use href="#eu-star" x="18.8" y="68.0"/><use href="#eu-star" x="14.0" y="50.0"/><use href="#eu-star" x="18.8" y="32.0"/><use href="#eu-star" x="32.0" y="18.8"/></g></svg>',
       'Oceano Atlântico': '🌊',
       'Mar Mediterrâneo': '⛵',
       'Pirenéus': '⛰️',
