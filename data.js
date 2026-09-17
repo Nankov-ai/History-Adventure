@@ -11,8 +11,8 @@ const gameData = {
     name: 'A1 · Localização',
     matchWords: {
       'Europa': '<svg viewBox="0 0 100 100" style="width:74%;height:74%"><defs><path id="eu-star" d="M0,-4 L0.95,-1.24 L3.8,-1.24 L1.55,0.47 L2.35,3.24 L0,1.53 L-2.35,3.24 L-1.55,0.47 L-3.8,-1.24 L-0.95,-1.24 Z"/></defs><circle cx="50" cy="50" r="48" fill="#003399"/><g fill="#FFCC00"><use href="#eu-star" x="50.0" y="14.0"/><use href="#eu-star" x="68.0" y="18.8"/><use href="#eu-star" x="81.2" y="32.0"/><use href="#eu-star" x="86.0" y="50.0"/><use href="#eu-star" x="81.2" y="68.0"/><use href="#eu-star" x="68.0" y="81.2"/><use href="#eu-star" x="50.0" y="86.0"/><use href="#eu-star" x="32.0" y="81.2"/><use href="#eu-star" x="18.8" y="68.0"/><use href="#eu-star" x="14.0" y="50.0"/><use href="#eu-star" x="18.8" y="32.0"/><use href="#eu-star" x="32.0" y="18.8"/></g></svg>',
-      'Oceano Atlântico': '🌊',
-      'Mar Mediterrâneo': '⛵',
+      'Oceano Atlântico': '⛵',
+      'Mar Mediterrâneo': '🏺',
       'Pirenéus': '⛰️',
       'Portugal': '<img src="assets/pt.svg" alt="Mapa de Portugal" class="country-icon">',
       'Espanha': '<img src="assets/es.svg" alt="Mapa de Espanha" class="country-icon">',
