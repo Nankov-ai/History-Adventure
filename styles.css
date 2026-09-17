@@ -257,6 +257,14 @@ body {
     box-shadow: 0 3px 8px rgba(0,0,0,0.25), inset 0 0 0 2px rgba(139,69,19,0.15);
 }
 
+/* Country silhouette icons (Portugal, Espanha) — real map outlines from
+   local SVG assets, sized to fit inside the emoji-badge circle. */
+.country-icon {
+    width: 68%;
+    height: 68%;
+    object-fit: contain;
+}
+
 .match-card:hover {
     transform: scale(1.05);
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);

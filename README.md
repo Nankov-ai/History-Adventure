@@ -13,3 +13,7 @@ Espelha a arquitetura do projeto irmão [English Adventure](https://github.com/N
 ## Próximos passos
 
 Novas `Aula N` vão sendo adicionadas a `Fontes do Conhecimento/` ao longo do ano letivo — o `data.js` deve ser estendido com esse conteúdo à medida que for surgindo (ver secção "Adding new content" em [`CLAUDE.md`](CLAUDE.md)).
+
+## Créditos
+
+Os contornos de Portugal e Espanha em `assets/pt.svg` e `assets/es.svg` vêm do projeto gratuito [mapsicon](https://github.com/djaiss/mapsicon) de djaiss.
