@@ -12,7 +12,7 @@ const gameData = {
     matchWords: {
       'Europa': '<svg viewBox="0 0 100 100" style="width:74%;height:74%"><defs><path id="eu-star" d="M0,-4 L0.95,-1.24 L3.8,-1.24 L1.55,0.47 L2.35,3.24 L0,1.53 L-2.35,3.24 L-1.55,0.47 L-3.8,-1.24 L-0.95,-1.24 Z"/></defs><circle cx="50" cy="50" r="48" fill="#003399"/><g fill="#FFCC00"><use href="#eu-star" x="50.0" y="14.0"/><use href="#eu-star" x="68.0" y="18.8"/><use href="#eu-star" x="81.2" y="32.0"/><use href="#eu-star" x="86.0" y="50.0"/><use href="#eu-star" x="81.2" y="68.0"/><use href="#eu-star" x="68.0" y="81.2"/><use href="#eu-star" x="50.0" y="86.0"/><use href="#eu-star" x="32.0" y="81.2"/><use href="#eu-star" x="18.8" y="68.0"/><use href="#eu-star" x="14.0" y="50.0"/><use href="#eu-star" x="18.8" y="32.0"/><use href="#eu-star" x="32.0" y="18.8"/></g></svg>',
       'Oceano Atlântico': '⛵',
-      'Mar Mediterrâneo': '🏺',
+      'Mar Mediterrâneo': '<svg viewBox="0 0 200 100" style="width:80%;height:80%"><path d="M6,50 C8,36 26,26 50,28 C64,29 72,26 78,18 C82,26 78,34 70,40 C63,45 62,52 68,58 C74,63 80,58 82,48 C84,38 80,28 84,16 C88,26 90,38 100,34 C114,27 132,24 150,27 C166,30 180,38 188,50 C192,58 186,66 176,67 C154,70 132,71 112,68 C94,71 78,73 60,71 C42,69 24,64 14,58 C8,55 5,54 6,50 Z" fill="#4a90d9" stroke="#1a4d7a" stroke-width="3"/></svg>',
       'Pirenéus': '⛰️',
       'Portugal': '<img src="assets/pt.svg" alt="Mapa de Portugal" class="country-icon">',
       'Espanha': '<img src="assets/es.svg" alt="Mapa de Espanha" class="country-icon">',
